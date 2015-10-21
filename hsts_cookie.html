@@ -1,0 +1,61 @@
+<html>
+	<head>
+		<script src="hsts_cookie.js">
+
+		</script>
+		
+		<script>
+			var domains = [
+				'http://a.test.bar/sec/hsts_tracking/hsts_cookie.php',
+				'http://b.test.bar/sec/hsts_tracking/hsts_cookie.php',
+				'http://c.test.bar/sec/hsts_tracking/hsts_cookie.php',
+				'http://d.test.bar/sec/hsts_tracking/hsts_cookie.php',
+				'http://e.test.bar/sec/hsts_tracking/hsts_cookie.php',
+				'http://f.test.bar/sec/hsts_tracking/hsts_cookie.php',
+				'http://g.test.bar/sec/hsts_tracking/hsts_cookie.php',
+				'http://h.test.bar/sec/hsts_tracking/hsts_cookie.php',
+			];
+			
+			function enable_btn(state){
+				document.getElementById('btn_set').enabled = state;
+			}
+			
+			function on_load(){
+				if(domains.length > 32){
+					alert('Only up to 32 domains (bits) are supported. If you want more fix the int_to_bool part');
+					return;
+				}
+				document.getElementById('domain_count').innerHTML = domains.length;
+				document.getElementById('max_value').innerHTML = Math.pow(2, domains.length) - 1;
+				do_refresh();
+			}
+			
+			function do_set(){
+				var value = document.getElementById('cur_value').value;
+				set_hsts_as_int(domains, value, function(){});
+			}
+			
+			function do_refresh(){
+				fields = [];
+				get_hsts_as_int(domains, function(valuea){
+					document.getElementById('cur_value').value = valuea;
+				});
+			}
+			
+			function do_delete(){
+				set_hsts_as_int(domains, "0", function(){
+					document.getElementById('cur_value').value = 0;
+				});
+			}
+			
+		</script>
+	</head>
+	<body onload="on_load()">
+		<h3>You have <strong id="domain_count">?</strong> domains.</h3>
+		You are able to save positive integers up to <strong id="max_value">?</strong>.<br/>
+		Current Value: <input id="cur_value" type="text" value="?">
+		<button id="btn_set" onclick="do_set()">Set</button>
+		<button id="btn_refresh" onclick="do_refresh()">Refresh</button>
+		<button id="btn_del" onclick="do_delete()">Delete</button>
+	</body>
+</html>
