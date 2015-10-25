@@ -1,7 +1,6 @@
 <html>
 	<head>
 		<script src="hsts_cookie.js">
-
 		</script>
 		
 		<script>
@@ -14,7 +13,23 @@
 				'http://f.test.bar/sec/hsts_tracking/hsts_cookie.php',
 				'http://g.test.bar/sec/hsts_tracking/hsts_cookie.php',
 				'http://h.test.bar/sec/hsts_tracking/hsts_cookie.php',
+				'http://i.test.bar/sec/hsts_tracking/hsts_cookie.php',
+				'http://j.test.bar/sec/hsts_tracking/hsts_cookie.php',
+				'http://k.test.bar/sec/hsts_tracking/hsts_cookie.php',
+				'http://l.test.bar/sec/hsts_tracking/hsts_cookie.php',
+				'http://m.test.bar/sec/hsts_tracking/hsts_cookie.php',
+				'http://n.test.bar/sec/hsts_tracking/hsts_cookie.php',
+				'http://o.test.bar/sec/hsts_tracking/hsts_cookie.php',
+				'http://p.test.bar/sec/hsts_tracking/hsts_cookie.php',
+				'http://q.test.bar/sec/hsts_tracking/hsts_cookie.php',
+				'http://r.test.bar/sec/hsts_tracking/hsts_cookie.php',
+				'http://s.test.bar/sec/hsts_tracking/hsts_cookie.php',
+				'http://t.test.bar/sec/hsts_tracking/hsts_cookie.php',
+				'http://u.test.bar/sec/hsts_tracking/hsts_cookie.php',
 			];
+			
+			var hsts_cookie = HSTS_Cookie(domains);
+			
 			
 			function enable_btn(state){
 				document.getElementById('btn_set').enabled = state;
@@ -32,18 +47,18 @@
 			
 			function do_set(){
 				var value = document.getElementById('cur_value').value;
-				set_hsts_as_int(domains, value, function(){});
+				hsts_cookie.set_hsts_as_int(value, function(){});
 			}
 			
 			function do_refresh(){
 				fields = [];
-				get_hsts_as_int(domains, function(valuea){
+				hsts_cookie.get_hsts_as_int(function(valuea){
 					document.getElementById('cur_value').value = valuea;
 				});
 			}
 			
 			function do_delete(){
-				set_hsts_as_int(domains, "0", function(){
+				hsts_cookie.set_hsts_as_int("0", function(){
 					document.getElementById('cur_value').value = 0;
 				});
 			}
@@ -51,11 +66,11 @@
 		</script>
 	</head>
 	<body onload="on_load()">
-		<h3>You have <strong id="domain_count">?</strong> domains.</h3>
+		<h3>You have <strong id="domain_count">?</strong> domains/bits.</h3>
 		You are able to save positive integers up to <strong id="max_value">?</strong>.<br/>
 		Current Value: <input id="cur_value" type="text" value="?">
 		<button id="btn_set" onclick="do_set()">Set</button>
-		<button id="btn_refresh" onclick="do_refresh()">Refresh</button>
+		<button id="btn_refresh" onclick="do_refresh()">Load</button>
 		<button id="btn_del" onclick="do_delete()">Delete</button>
 	</body>
 </html>

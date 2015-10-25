@@ -7,7 +7,6 @@ if(isset($_GET['SET'])){
 		header('Strict-Transport-Security: max-age=31536000');
 	}else{
 		$redirect = "https://".$_SERVER['HTTP_HOST'].$_SERVER['REQUEST_URI'];
-		header("HTTP/1.1 301 Moved Permanently");
 		header("Location: $redirect");
 	}
 	die();
@@ -18,7 +17,6 @@ if(isset($_GET['DEL'])){
 		header('Strict-Transport-Security: max-age=0');
 	}else{
 		$redirect = "https://".$_SERVER['HTTP_HOST'].$_SERVER['REQUEST_URI'];
-		header("HTTP/1.1 301 Moved Permanently");
 		header("Location: $redirect");
 	}
 	die();
@@ -26,7 +24,8 @@ if(isset($_GET['DEL'])){
 
 if($is_ssl){
 	header('Content-type: image/png');
-	readfile('track.png');
+	// some white pixel
+	echo base64_decode('iVBORw0KGgoAAAANSUhEUgAAAAgAAAAJCAIAAACAMfp5AAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAAYSURBVBhXY/z//z8DNsAEpTHAkJJgYAAAo0sDD8axyJQAAAAASUVORK5CYII=');
 	die();
 }else{
 	header('X-PHP-Response-Code: 404', true, 404);
