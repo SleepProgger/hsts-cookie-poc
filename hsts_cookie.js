@@ -51,6 +51,8 @@ var HSTS_Cookie = function(domains){
 	}
 	
 	return {
+		'bools_to_int': bools_to_int,
+	        'is_working': function(){ return working },
 		'get_hsts_value': function (callback){
 			if(working) return false;
 			working = true;
